@@ -1,3 +1,4 @@
+
 const empleados = [
     {
         id: 1,
@@ -54,15 +55,28 @@ const getSalario = ( id ) => {
         (salario)
         ? resolve(salario)
         : reject(`No existe el salario del empleado con id ${id}`);
-    })
+    });
 }
 
-    let nombre;
+const getInfoUsuario = async() => {
+    try {
+        
+        
+        const empleado = await getEmpleado(id);
+        const salario = await getSalario(id);
+        
+        return `El salario del empleado : ${empleado} es de ${salario}`; 
+    } catch (error) {
+        throw error;
+    }
     
-     getEmpleado(id)
-     .then(empleado =>{
-        nombre = empleado;
-        return getSalario( id )
-    })
-     .then(salario => console.log(`El empleado:`, nombre, 'tiene un salario de :', salario))
-     .catch(err => console.log( err ));
+}
+
+
+getInfoUsuario( id )
+    .then(msg => {
+        console.log(msg)
+        console.log('Todo correcto =)')})
+    .catch(err => {
+        console.log('Todo mal =(')
+        console.log(err)});
