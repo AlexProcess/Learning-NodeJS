@@ -1,9 +1,7 @@
 const fs = require("fs");
 
-const createFile = async(number = 5) => {
-    
-  return new Promise((resolve, reject) => {
-
+const createFile = async (number = 5) => {
+  try {
     console.log(`=====================`);
     console.log("Tabla del", number);
     console.log(`======================`);
@@ -19,8 +17,11 @@ const createFile = async(number = 5) => {
     console.log(salida);
 
     fs.writeFileSync(`tabla-${number}.txt`, salida);
-      return(`Tabla-${number}.txt creada!,`);
-  });
+
+    return `Tabla-${number}.txt`;
+  } catch (err) {
+    throw err;
+  }
 };
 
 module.exports = {
