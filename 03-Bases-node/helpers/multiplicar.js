@@ -1,11 +1,7 @@
 const fs = require("fs");
 
-const createFile = async (number = 5) => {
+const createFile = async (number = 5, listar = false) => {
   try {
-    console.log(`=====================`);
-    console.log("Tabla del", number);
-    console.log(`======================`);
-
     let salida = "";
     let range = 10;
 
@@ -14,7 +10,12 @@ const createFile = async (number = 5) => {
       salida += `${number} X ${i} = ${result}\n`;
     }
 
-    console.log(salida);
+    if (listar) {
+      console.log(`=====================`);
+      console.log("Tabla del", number);
+      console.log(`======================`);
+      console.log(salida);
+    }
 
     fs.writeFileSync(`tabla-${number}.txt`, salida);
 

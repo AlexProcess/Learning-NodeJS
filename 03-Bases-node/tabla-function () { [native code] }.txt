@@ -1,0 +1,10 @@
+function () { [native code] } X 1 = NaN
+function () { [native code] } X 2 = NaN
+function () { [native code] } X 3 = NaN
+function () { [native code] } X 4 = NaN
+function () { [native code] } X 5 = NaN
+function () { [native code] } X 6 = NaN
+function () { [native code] } X 7 = NaN
+function () { [native code] } X 8 = NaN
+function () { [native code] } X 9 = NaN
+function () { [native code] } X 10 = NaN

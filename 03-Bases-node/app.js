@@ -1,14 +1,15 @@
+const argv = require("./config/yargs");
 const { createFile } = require("./helpers/multiplicar");
 
+
 console.clear();
-console.log(process.argv);
 
-const [, , arg3 = 'number=5'] = process.argv;
-const [, number] = arg3.split('=')
-console.log(number);
+console.log(argv);
 
-//const number = 5;
+console.log("base: yargs", argv.base);
 
-createFile(number)
+createFile(argv.b, argv.l)
   .then((nombreArchivo) => console.log(nombreArchivo, "creado"))
   .catch((err) => console.log(err));
+
+
