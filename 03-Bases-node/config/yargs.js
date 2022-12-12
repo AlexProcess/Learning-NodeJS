@@ -13,6 +13,13 @@ const argv = require("yargs")
     describe: "Show the table in a console"
   })
 
+  .option("h", {
+    alias: "hasta",
+    type: "number",
+    default: 10,
+    describe: "this is the number that defines how far you want the table to go"
+  })
+
   .check((argv, options) => {
     if (isNaN(argv.b)) {
       throw "La base tiene que ser un numero";
