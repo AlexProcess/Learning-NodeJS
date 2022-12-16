@@ -1,4 +1,3 @@
-const { v4: uuidv4 } = require('uuid')
 
 /**
 *   _listado:
@@ -6,7 +5,7 @@ const { v4: uuidv4 } = require('uuid')
 *
 */
 
-class Tarea {
+class Tareas {
 
     _listado = {};
 
