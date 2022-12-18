@@ -1,23 +1,25 @@
-const Tarea = require("./tarea");
+// Importamos la clase Tarea
+const Tarea = require("./tarea.js");
 
-/**
- *   _listado:
- *   { uuid-19328-29831-2: { id:12, desc:asd, completadoEN:92231 } }
- *
- */
-
-class Tareas {
+// Definimos la clase ListadoTareas
+class ListadoTareas {
+  // Inicializamos el listado de tareas en un objeto vacío
   _listado = {};
 
+  // Creamos el constructor de la clase
   constructor() {
     this._listado = {};
   }
 
+  // Creamos un método para crear una nueva tarea
   crearTarea(desc = "") {
+    // Creamos una nueva tarea con la descripción proporcionada
     const tarea = new Tarea(desc);
 
+    // Añadimos la tarea al listado de tareas
     this._listado[tarea.id] = tarea;
   }
 }
 
-module.exports = Tareas;
+// Exportamos la clase ListadoTareas
+module.exports = ListadoTareas;
