@@ -2,7 +2,6 @@ const { inquirerMenu, pausa, leerInput } = require("./helpers/inquirer");
 require("colors");
 const Tarea = require("./models/tarea.js");
 const ListadoTareas = require("./models/tareas.js");
-
 const main = async () => {
   let opt = "";
 
@@ -19,7 +18,7 @@ const main = async () => {
         break;
 
       case "2":
-        console.log(tareas._listado);
+        console.log(tareas.listadoArr());
         break;
     }
     if (opt !== "0") await pausa();
