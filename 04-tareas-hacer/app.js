@@ -1,13 +1,18 @@
-const { inquirerMenu, pausa, leerInput } = require("./helpers/inquirer");
-const { guardarDB } = require("./helpers/saveFile");
+const { inquirerMenu, pausa, leerInput, } = require("./helpers/inquirer");
+const { guardarDB, leerDB } = require("./helpers/saveFile");
 require("colors");
 const Tarea = require("./models/tarea.js");
 const ListadoTareas = require("./models/tareas.js");
 const main = async () => {
+  
   let opt = "";
-
   const tareas = new ListadoTareas();
 
+  const tareasDB = leerDB();
+
+  if (tareasDB) {
+    //ESTABLECER LAS TAREAS
+  }
   do {
     opt = await inquirerMenu();
 
