@@ -11,16 +11,18 @@ const main = async () => {
 
   const tareasDB = leerDB();
 
-  if (tareasDB) {
+  if (tareasDB) {//Cargar tareas
 
     tareas.cargarTareasFromArray(tareasDB)
-    
   }
+
   do {
+    //imprime menu
     opt = await inquirerMenu();
 
     switch (opt) {
       case "1":
+        //crea la opcion
         const desc = await leerInput("Descripción: ");
 
         tareas.crearTarea(desc);
