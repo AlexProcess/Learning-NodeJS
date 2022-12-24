@@ -31,10 +31,22 @@ const main = async () => {
       case "2":
         tareas.listadoCompleto();
         break;
+
+      case '3':
+        tareas.listarPendientesCompletas(true);
+      break;
+
+      case '4':
+        tareas.listarPendientesCompletas(false);
+      break;
+
+
+
     }
 
     guardarDB(tareas.listadoArr);
 
+    
     await pausa();
   } while (opt !== "0");
 };
