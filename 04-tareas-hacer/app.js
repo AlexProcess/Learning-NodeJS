@@ -1,4 +1,4 @@
-const { inquirerMenu, pausa, leerInput, } = require("./helpers/inquirer");
+const { inquirerMenu, pausa, leerInput, ListadoTareasBorrar } = require("./helpers/inquirer");
 const { guardarDB, leerDB } = require("./helpers/saveFile");
 require("colors");
 const Tarea = require("./models/tarea.js");
@@ -38,6 +38,15 @@ const main = async () => {
 
       case '4':
         tareas.listarPendientesCompletas(false);
+      break;
+      
+      // case '5':
+      //   tareas.listarPendientesCompletas(false);
+      // break;
+
+      case '6':
+        tareas.ListadoTareasBorrar(tareas.listadoArr);
+        console.log({id})
       break;
 
 

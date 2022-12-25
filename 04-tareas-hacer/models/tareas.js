@@ -6,10 +6,17 @@ class ListadoTareas {
   _listado = {
     abc: 123,
   };
+
   // Inicializamos el listado de tareas en un objeto vacío
   // Creamos el constructor de la clase
   constructor() {
     this._listado = {};
+  }
+
+  borrarTareas(id = ''){
+    if (this._listado[id]) {
+      delete this._listado[id];
+    }
   }
 
   get listadoArr() {
