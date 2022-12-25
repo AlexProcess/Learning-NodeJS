@@ -34,7 +34,7 @@ const questions = [
 
       {
         value: "6",
-        name: `${'6.'.green} Borras una tarea`,
+        name: `${'6.'.green} Borrar una tarea`,
       },
 
       {
@@ -87,24 +87,31 @@ const leerInput = async (message) => {
   return desc;
 };
 
-const ListadoTareasBorrar = async (tareas = [] ) => {
-  const choices = tareas.map( tarea, i =>  {
+const listadoTareasBorrar = async (tareas = [] ) => {
+  const choices = tareas.map( (tarea, i ) =>  {
     const idx = `${1 + i }`.green;
     
     return {
-      value: 'hola',
-      name: idx 
+      value: tarea.id,
+      name: `${idx} ${tarea.desc}` 
     }
   })
-  console.log(choices);
-  //   value: tarea.id,
-  //   name: `${'1.'.green} Crear tarea`,
-  // }
+  const preguntas = [
+    {
+      type : 'list',
+      name: 'id',
+      message: 'Borrar',
+      choices
+    }
+  ]
+  const { id } = await inquirer.prompt(preguntas);
+  return id;
 }
+
 
 module.exports = {
   inquirerMenu,
   pausa,
   leerInput,
-  ListadoTareasBorrar
+  listadoTareasBorrar
 };
