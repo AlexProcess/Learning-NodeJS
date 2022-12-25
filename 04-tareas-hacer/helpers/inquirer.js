@@ -96,7 +96,7 @@ const listadoTareasBorrar = async (tareas = [] ) => {
       name: `${idx} ${tarea.desc}` 
     }
   });
-  
+
   choices.unshift({
     value: '0',
     name: '0.'.green + ' Cancelar'
@@ -128,6 +128,29 @@ const confirmar = async (message) => {
   return OK;
 }
 
+const mostrarListadoChecklist = async (tareas = [] ) => {
+  const choices = tareas.map( (tarea, i ) =>  {
+
+    const idx = `${1 + i }`.green;
+    
+    return {
+      value: tarea.id,
+      name: `${idx} ${tarea.desc}`,
+      checked: (tarea.completadoEn) ? true : false
+    }
+  });
+
+  const pregunta = [
+    {
+      type : 'checkbox',
+      name: 'ids',
+      message: 'Seleccioné',
+      choices
+    }
+  ]
+  const { ids } = await inquirer.prompt(pregunta);
+  return ids;
+}
 
 
 
@@ -136,5 +159,6 @@ module.exports = {
   pausa,
   leerInput,
   listadoTareasBorrar,
-  confirmar
+  confirmar,
+  mostrarListadoChecklist
 };
