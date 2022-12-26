@@ -2,6 +2,10 @@ const express = require('express');
 const port = 8080;
 const app = express();
 
+// Servir contenido estatico
+app.use( express.static('public') );
+
+
 app.get('/',  (req, res) => {
   res.send('Home page')
 });
@@ -11,7 +15,7 @@ app.get('/hola-mundo',  (req, res) => {
 });
 
 app.get('/*',  (req, res) => {
-  res.send('404 | Page not found')
+  res.sendFile(__dirname + '/public/404.html')
 });
 
 app.listen(port, () => {
