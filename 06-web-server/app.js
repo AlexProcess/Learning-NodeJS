@@ -1,9 +1,12 @@
 const http = require('http');
 
-http.createServer( (request, res) => {
-    res.writable('Hola mundo')
+http.createServer( (req, res) => {
     
-    
+    console.log(req);
+
+
+    res.write('Hola mundo')
+    res.end();
     
 })
 
