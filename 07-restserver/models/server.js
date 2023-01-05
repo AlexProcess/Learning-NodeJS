@@ -15,7 +15,10 @@ class Server {
     }
 
     middlewares() {
-        //pubclic directorie
+        //CORS 
+        this.app.use(cors());
+
+        //directory public
         this.app.use(express.static('public'))
     }
 
