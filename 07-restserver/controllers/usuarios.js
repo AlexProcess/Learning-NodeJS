@@ -17,8 +17,12 @@ const usuariosPut = (req, res = response) => {
 
 const usuariosPost = (req, res = response) => {
     
+    const {nombre, edad} = req.body;
+
     res.json({
-        msg: 'POST api desde el controlador'
+        msg: 'POST api desde el controlador',
+        nombre,
+        edad
     });
 }
 
