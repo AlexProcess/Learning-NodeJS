@@ -26,7 +26,8 @@ const usuariosPut = (req, res = response) => {
 const usuariosPost = async (req, res = response) => {
     const body = req.body;
     const usuario = new Usuario( body );
-
+    
+    
     await usuario.save();
     
     res.json({
