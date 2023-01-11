@@ -32,9 +32,6 @@ const usuariosPost = async (req, res = response) => {
     const { nombre, correo, password, rol } = req.body;
     const salt = bcryptjs.genSaltSync();
     const encryptedPassword = bcryptjs.hashSync(password.toString(), salt);
-
-    //Verificar si el correo existe
-    
     
     //generar usuario
     const usuario = await new Usuario({
