@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 const dbConnection = async() => {
     try {
         mongoose.set("strictQuery", false);
-        await mongoose.connect(process.env.MONGODB_ATLAS, {
+        mongoose.connect(process.env.MONGODB_ATLAS, {
             useNewUrlParser: true,
             useUnifiedTopology: true,
         });

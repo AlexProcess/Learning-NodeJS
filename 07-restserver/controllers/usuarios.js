@@ -1,7 +1,7 @@
 const { response, request } = require("express");
 const { validationResult } = require('express-validator')
 const bcryptjs = require("bcryptjs");
-const Usuario = require("../models/Usuario");
+const Usuario = require("../models/usuario");
 
 
 const usuariosGet = (req = request, res = response) => {
@@ -43,9 +43,9 @@ const usuariosPost = async (req, res = response) => {
     // Guardar en DB
     
     await usuario.save();
+
     res.json({
-      msg: "POST api desde el controlador",
-      usuario,
+      usuario
     });
   }
     
