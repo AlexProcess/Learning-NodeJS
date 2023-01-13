@@ -28,7 +28,6 @@ const usuariosPut = (req, res = response) => {
 
 const usuariosPost = async (req, res = response) => {
     
-    
     const { nombre, correo, password, rol } = req.body;
     const salt = bcryptjs.genSaltSync();
     const encryptedPassword = bcryptjs.hashSync(password.toString(), salt);
