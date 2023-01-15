@@ -18,25 +18,6 @@ const usuariosGet = (req = request, res = response) => {
   });
 };
 
-const usuariosPut = async(req, res = response) => {
-  const id = req.params;
-  const {password, google, ...resto} = req.body;
-
-  // Validar contra la base de datos
-  if (password) {
-    //encriptar password
-    const salt = bcryptjs.genSaltSync();
-    resto.password = bcryptjs.hashSync( password, salt );
-    
-    const usuario = await Usuario.findByIdAndUpdate( id, resto, );
-  }
-
-  res.json({
-    msg: "PUT api desde el controlador",
-    id
-  });
-}
-
 const usuariosPost = async (req, res = response) => {
     
     const { nombre, correo, password, rol } = req.body;
@@ -58,6 +39,35 @@ const usuariosPost = async (req, res = response) => {
       usuario
     });
   }
+
+const usuariosPut = async(req, res = response) => {
+
+  const id = req.params;
+  const {password, google, correo, ...resto} = req.body;
+
+  //Validar contra la base de datos
+  console.log(password)
+  if (password) {
+    //encriptar password
+    const salt = bcryptjs.genSaltSync();
+    resto.password = bcryptjs.hashSync( password, salt );
+    
+  }
+
+  const usuario = await Usuario.findByIdAndUpdate( id, resto );
+
+  res.json({
+    msg: "PUT api desde el controlador",
+    id,
+    usuario
+  });
+}
+
+const usuariosPatch = (req, res = response) => {
+  res.json({
+    msg: "Patch api desde el controlador",
+  });
+};
     
 const usuariosDelete = (req, res = response) => {
   res.json({
@@ -65,11 +75,6 @@ const usuariosDelete = (req, res = response) => {
   });
 };
 
-const usuariosPatch = (req, res = response) => {
-  res.json({
-    msg: "Patch api desde el controlador",
-  });
-};
 
 module.exports = {
   usuariosGet,

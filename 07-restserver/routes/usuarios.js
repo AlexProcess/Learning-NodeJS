@@ -12,13 +12,17 @@ const {
 
 const { validarCampos } = require("../middlewares/validar-campos");
 const role = require("../models/role");
-const { esRoleValido, emailExiste } = require("../helpers/db-validators");
+const { esRoleValido, emailExiste, existeUsuarioPorId } = require("../helpers/db-validators");
 
 const router = Router();
 
 router.get("/", usuariosGet);
 
-router.put("/:id", usuariosPut);
+router.put("/:id", [
+  check('id', 'No es un ID valido').isMongoId(),
+  validarCampos,
+  check('id').custom( existeUsuarioPorId ),
+], usuariosPut);
 
 router.post(
   "/",
