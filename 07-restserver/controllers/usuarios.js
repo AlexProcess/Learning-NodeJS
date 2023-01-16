@@ -43,7 +43,7 @@ const usuariosPost = async (req, res = response) => {
 const usuariosPut = async(req, res = response) => {
 
   const { id } = req.params;
-  const {password, google, correo, ...resto} = req.body;
+  const {_id, password, google, correo, ...resto} = req.body;
 
   //Validar contra la base de datos
   if (password) {
@@ -53,7 +53,7 @@ const usuariosPut = async(req, res = response) => {
     
   }
 
-  const usuario = await Usuario.findByIdAndUpdate( id, resto );
+  const usuario = await Usuario.findByIdAndUpdate( id, resto, {new:true} );
 
   res.json({
     msg: "PUT api desde el controlador",

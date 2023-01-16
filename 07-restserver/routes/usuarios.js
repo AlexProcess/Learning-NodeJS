@@ -20,8 +20,9 @@ router.get("/", usuariosGet);
 
 router.put("/:id", [
   check('id', 'No es un ID valido').isMongoId(),
-  validarCampos,
   check('id').custom( existeUsuarioPorId ),
+  check('rol').custom( esRoleValido ),
+  validarCampos,
 ], usuariosPut);
 
 router.post(
