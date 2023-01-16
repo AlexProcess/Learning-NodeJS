@@ -5,16 +5,15 @@ const Usuario = require("../models/usuario");
 const usuario = require("../models/usuario");
 
 
-const usuariosGet = (req = request, res = response) => {
-  const { q, nombre = "noname", apikey, page = 1, limit } = req.query;
+const usuariosGet = async(req = request, res = response) => {
+  //const { q, nombre = "noname", apikey, page = 1, limit } = req.query;
+  const { limite = 5, desde = 0 } = req.query;
+  const usuarios = await Usuario.find()
+    .skip(Number(desde))
+    .limit(Number(limite))
 
   res.json({
-    msg: "GET api desde el controlador",
-    q,
-    nombre,
-    apikey,
-    page,
-    limit,
+    usuarios
   });
 };
 
