@@ -56,9 +56,11 @@ const googleSignIn = async(req = request, res = response) => {
   try {
     
     const googleUser = await GoogleVerify( id_token );
+
+    console.log(googleUser);
         
     res.json({
-      msg: 'Todo esta bien!',
+      msg: 'Todo esta bien Google Sign in!',
       id_token
     })
   } catch (error) {
