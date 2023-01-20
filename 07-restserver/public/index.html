@@ -5,15 +5,15 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link href="css/style.css" rel="stylesheet" />
+    <title>Google Sign-in</title>
   </head>
 
   <body>
     <h1>Google Sign-in</h1>
     <hr />
-
     <div
       id="g_id_onload"
-      data-client_id="YOUR_GOOGLE_CLIENT_ID"
+      data-client_id="482711840190-5c59t1tcs4v9ijd3152q3hiq245ff8gs.apps.googleusercontent.com"
       data-auto_prompt="false"
       data-callback="handleCredentialResponse"
     ></div>
@@ -26,12 +26,11 @@
       data-shape="rectangular"
       data-logo_alignment="left"
     ></div>
-
     <script src="https://accounts.google.com/gsi/client" async defer></script>
 
     <script>
       function handleCredentialResponse(response) {
-        //Gooogle Token : ID_TOKEN
+        //Google token - ID_TOKEN
 
         console.log("id_token", response.credential);
       }
