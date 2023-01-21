@@ -55,9 +55,9 @@ const googleSignIn = async(req = request, res = response) => {
 
   try {
     
-    const googleUser = await GoogleVerify( id_token );
+    const {nombre, img, correo} = await GoogleVerify( id_token );
 
-    console.log(googleUser);
+    console.log(nombre, img, correo);
         
     res.json({
       msg: 'Todo esta bien Google Sign in!',
@@ -70,8 +70,6 @@ const googleSignIn = async(req = request, res = response) => {
     })
   }
   
-
-
 }
 
 module.exports = {
