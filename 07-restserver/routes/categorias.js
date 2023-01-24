@@ -1,7 +1,8 @@
 const { check } = require("express-validator");
 const { Router, response } = require("express");
 const { validarJWT, validarCampos } = require("../middlewares");
-const { crearCategoria } = require("../controllers/categoria");
+const { crearCategoria, obtenerCategorias, obtenerCategoria } = require("../controllers/categoria");
+const { existeCategoriaPorId } = require("../helpers/db-validators");
 
 const router = Router();
 
@@ -12,15 +13,16 @@ const router = Router();
 //Obtener todas las categorias
 
 
-router.get("/", (req = request, res = response) => {
-  return res.json({ msg: "Get" });
-});
+router.get("/", obtenerCategorias);
 //Obtener una categorias por id - publico
 
 
-router.get("/:id", (req = request, res = response) => {
-  return res.json({ msg: "Get - id" });
-});
+router.get("/:id", 
+[
+  check('id', 'no es un id de mongo valido').isMongoId(),
+  validarCampos,
+  check('id').custom( existeCategoriaPorId ),
+], obtenerCategoria);
 //Crear categoria por id - privado - cualquier persona con un token válido
 
 router.post(
