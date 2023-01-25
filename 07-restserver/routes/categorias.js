@@ -7,7 +7,8 @@ const {
   obtenerCategoria,
   actualizarCategoria,
   borrarCategoria,
-} = require("../controllers/categoria");
+  } = require("../controllers/categoria");
+
 const { existeCategoriaPorId } = require("../helpers/db-validators");
 
 const router = Router();
