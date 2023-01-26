@@ -14,7 +14,7 @@ const ProductoSchema = Schema({
     },
     usuario:{
         type: Schema.Types.ObjectId,
-        ref: 'Usuario',
+        ref: 'usuario',
         required: true
     },
     precio:{
@@ -22,8 +22,8 @@ const ProductoSchema = Schema({
         default: 0,
     },
     categoria:{
-        type: Schema.types.ObjectId,
-        ref: 'Categoria',
+        type: Schema.Types.ObjectId,
+        ref: 'categoria',
         require: true
     },
     descripcion:{ type: String },

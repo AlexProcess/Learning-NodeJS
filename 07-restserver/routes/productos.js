@@ -2,14 +2,14 @@ const { check } = require("express-validator");
 const { Router, response } = require("express");
 const { validarJWT, validarCampos, esAdminRole } = require("../middlewares");
 const {
-  crearProductos,
+  crearProducto,
   obtenerProductos,
   actualizarProducto,
   obtenerProducto,
   borrarProducto
   } = require("../controllers/productos");
 
-const { existeProductoPorId } = require("../helpers/db-validators");
+const { existeProductoPorId, existeCategoriaPorId } = require("../helpers/db-validators");
 
 const router = Router();
 
@@ -23,29 +23,27 @@ router.get(
   [
     check("id", "no es un id de mongo valido").isMongoId(),
     validarCampos,
-    check("id").custom(existeProductoPorIdPorId),
+    check("id").custom( existeProductoPorId ),
   ],
   obtenerProducto
 );
 //Crear Producto por id - privado - cualquier persona con un token válido
 
-router.post(
-  "/",
-  [
-    validarJWT,
-    check("nombre", "el nombre es obligatorio").not().isEmpty(),
-    validarCampos,
-  ],
-  crearProductos
-);
+router.post('/', [ 
+  validarJWT,
+  check('nombre','El nombre es obligatorio').not().isEmpty(),
+  check('categoria','No es un id de Mongo').isMongoId(),
+  check('categoria').custom( existeCategoriaPorId ),
+  validarCampos
+], crearProducto );
 //Actualizar - privado - cualquiera con un token valido
 
 router.put(
   "/:id",
   [
     validarJWT,
-    check("nombre", "El nombre es obligatorio").not().isEmpty(),
-    check("id").custom(existeProductoPorId),
+    check("categoria", "No es un id de mongo").isMongoId(),
+    check("id").custom( existeProductoPorId ),
     validarCampos,
   ],
   actualizarProducto
