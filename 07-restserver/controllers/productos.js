@@ -1,6 +1,5 @@
 const { request, response } = require("express");
-const { populate } = require("../models/producto");
-const Categoria = require('../models/producto')
+const { Producto } = require('../models')
 
 const obtenerProductos = async (req = request, res = response) => {
 
@@ -13,6 +12,7 @@ const obtenerProductos = async (req = request, res = response) => {
     Producto.countDocuments(query),
     Producto.find(query)
         .populate('usuario', 'nombre' )
+        .populate('categoria', 'nombre' )
         .skip(Number( desde ))
         .limit(Number( limite ))
   ]);
@@ -26,7 +26,9 @@ const obtenerProductos = async (req = request, res = response) => {
 
 const obtenerProducto = async (req = request, res = response) => {
     const { id } = req.params;
-    const producto = await Producto.findById( id ).populate('usuario', 'nombre');
+    const producto = await Producto.findById( id )
+                    .populate('usuario', 'nombre')
+                    .populate('categoria', 'nombre')
 
     return res.json( producto );
 
@@ -37,10 +39,13 @@ const actualizarProducto = async (req = request, res = response) => {
     const { id } = req.params;
     const { estado, usuario, ...data } = req.body;
 
-    data.nombre = data.nombre.toUpperCase();
+    if (data.nombre) {
+        data.nombre = data.nombre.toUpperCase();
+    }
+
     data.usuario = req.usuario._id;
 
-    const producto = await Producto.findByIdAndUpdate( id, data, {new: true} );
+    const producto = await Producto.findByIdAndUpdate( id, data, { new: true } );
 
     res.json( producto );
 }
@@ -56,19 +61,19 @@ const borrarProducto = async (req = request, res = response) =>{
 
 const crearProducto = async(req = request, res = response) => {
 
-    const nombre = req.body.nombre.toUpperCase();
+    const {esatdo, usuario, ...body} = req.body;
     
     const productoDB = await Producto.findOne({ nombre });
     
     if (productoDB) {
     return res.status(404).json({
         msg: `El producto ${productoDB.nombre}, ya existe`
-    })
+    });
 }
 
 //generar la data a guardar
 const data = {
-    nombre,
+    nombre: body.nombre.toUpperCase(),
     usuario: req.usuario._id
 }
 
