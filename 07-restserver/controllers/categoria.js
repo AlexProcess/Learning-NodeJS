@@ -5,30 +5,29 @@ const Categoria = require('../models/categoria')
 //obtenerCategorias - apginado - total - populate
 const obtenerCategorias = async (req = request, res = response) => {
 
+   
     const { limite = 5, desde = 0 } = req.query;
-    const query = {estado: true}
+    const query = { estado: true };
 
-  //const total = await Usuario.countDocuments(query);
+    const [ total, categorias ] = await Promise.all([
+        Categoria.countDocuments(query),
+        Categoria.find(query)
+            .populate('usuario', 'nombre')
+            .skip( Number( desde ) )
+            .limit(Number( limite ))
+    ]);
 
-  const [total, categorias] = await Promise.all([
-    Categoria.countDocuments(query),
-    Categoria.find(query)
-        .populate('usuario', 'nombre' )
-        .skip(Number( desde ))
-        .limit(Number( limite ))
-  ]);
-
-  res.json({
-    total,
-    categorias
-  });
-
+    return res.json({
+        total,
+        categorias
+    });
 }
 
 //obtenerCategoria populate{}
 const obtenerCategoria = async (req = request, res = response) => {
     const { id } = req.params;
-    const categoria = await Categoria.findById( id ).populate('usuario', 'nombre');
+    const categoria = await Categoria.findById( id )
+                            .populate('usuario', 'nombre');
 
     return res.json( categoria );
 
