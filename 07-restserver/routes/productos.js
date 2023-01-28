@@ -16,8 +16,8 @@ const router = Router();
 //Obtener todos los productos
 
 router.get("/", obtenerProductos);
-//Obtener un Producto por id - publico
 
+//Obtener un Producto por id - publico
 router.get(
   "/:id",
   [
@@ -42,7 +42,7 @@ router.put(
   "/:id",
   [
     validarJWT,
-    check("categoria", "No es un id de mongo").isMongoId(),
+    // check("categoria", "No es un id de mongo").isMongoId(),
     check("id").custom( existeProductoPorId ),
     validarCampos,
   ],
