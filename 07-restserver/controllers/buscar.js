@@ -1,22 +1,30 @@
 const { response, request } = require("express");
-const { ResultWithContext } = require("express-validator/src/chain");
-const { ObjectId } = require('mongoose').Types;
+const { ObjectId } = require("mongoose").Types;
 
-const { Usuario, categoria, Producto,  } = require("../models")
+const { Usuario, categoria, Producto } = require("../models");
 
 const coleccionesPermitidas = ["usuarios", "categorias", "productos", "roles"];
 
 const buscarUsuarios = async (termino = "", res = response) => {
-
-  const esMongoID = ObjectId.isValid( termino ); //TRUE
+  const esMongoID = ObjectId.isValid(termino); //TRUE
 
   if (esMongoID) {
     const usuario = await Usuario.findById(termino);
-    res.json({
-      results: ( usuario ) ? [ usuario] : []
-    })
+    return res.json({
+      results: usuario ? [usuario] : [],
+    });
   }
-  
+
+  const regex = new RegExp(termino, "i");
+
+  const usuarios = await Usuario.find({
+    $or: [{ nombre: regex }, { correo: regex }],
+    $and: [{ estado: true }],
+  });
+
+  res.json({
+    results: usuarios,
+  });
 };
 
 const buscar = (req = request, res = response) => {
@@ -32,25 +40,20 @@ const buscar = (req = request, res = response) => {
     switch (coleccion) {
       case "usuarios":
         buscarUsuarios(termino, res);
-      break;
+        break;
 
       case "categorias":
-
-      break;
+        break;
       case "productos":
-
-      break;
+        break;
       case "roles":
-
-      break;
+        break;
 
       default:
         return res.status(500).json({
           msg: "Se le olvido hacer esta busqueda",
         });
     }
-
-
   } catch (error) {
     console.error(error);
     res.status(500).json({
