@@ -16,7 +16,7 @@ class Server {
             categorias: '/api/categorias',
             productos:  '/api/productos',
             usuarios:   '/api/usuarios',
-            uploads:   '/api/uploads'
+            uploads:    '/api/uploads',
         }
         
         //Conectar a la base de datos
