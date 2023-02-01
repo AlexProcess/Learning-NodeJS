@@ -116,14 +116,15 @@ const mostrarImagen = async (req, res = response) => {
       coleccion,
       modelo.img
     );
+    
     if (fs.existsSync(pathImagen)) {
       return res.sendFile(pathImagen);
     }
-    res.json({
-      id,
-      coleccion,
-    });
   }
+
+    const pathImagen = path.join( __dirname, '../assets/no-image.jpg');
+    res.sendFile(pathImagen);
+
 };
 
 module.exports = {
