@@ -1,8 +1,11 @@
 const path = require("path");
 const fs = require("fs");
+
+const cloudinary = require('cloudinary').v2
+cloudinary.config( process.env.CLOUDINARY_URL );
+
 const { response } = require("express");
 const { subirArchivo } = require("../helpers");
-
 const { Usuario, Producto } = require("../models");
 
 const cargarArchivo = async (req, res = response) => {
@@ -21,7 +24,7 @@ const cargarArchivo = async (req, res = response) => {
   }
 };
 
-const actualizarImagen = async (req, res = response) => {
+const actualizarImagenClodinary = async (req, res = response) => {
   const { id, coleccion } = req.params;
 
   let modelo;
@@ -52,17 +55,9 @@ const actualizarImagen = async (req, res = response) => {
 
   //Limpiar imagenes previas
   if (modelo.img) {
-    //Hay q borrar la imagen del servidor
-    const pathImagen = path.join(
-      __dirname,
-      "../uploads",
-      coleccion,
-      modelo.img
-    );
-    if (fs.existsSync(pathImagen)) {
-      fs.unlinkSync(pathImagen);
-    }
+    
   }
+  console.log(req.files.archivo);
 
   const nombre = await subirArchivo(
     req.files,
@@ -73,6 +68,8 @@ const actualizarImagen = async (req, res = response) => {
   modelo.img = nombre;
 
   await modelo.save();
+
+  // cloudinary.uploader.upload(  )
 
   return res.json({ modelo });
 };
@@ -127,8 +124,11 @@ const mostrarImagen = async (req, res = response) => {
 
 };
 
+
+
+
 module.exports = {
   cargarArchivo,
-  actualizarImagen,
   mostrarImagen,
+  actualizarImagenClodinary
 };
