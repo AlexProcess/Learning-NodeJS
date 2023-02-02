@@ -4,7 +4,7 @@ import userRoutes from "../routes/usuario";
 import db from "../db/connection";
 
 export class Server {
-  private app: express.Application;
+  private app: Application;
   private port: string;
   private apiPaths = {
     usuarios: "/api/usuarios",
@@ -26,7 +26,7 @@ export class Server {
       await db.authenticate();
       console.log("Database online");
     } catch (error: any) {
-      throw new Error( error );
+      throw new Error( "error al conectar a la BBDD" );
     }
   }
 
