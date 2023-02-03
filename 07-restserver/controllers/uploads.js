@@ -57,21 +57,17 @@ const actualizarImagenClodinary = async (req, res = response) => {
   if (modelo.img) {
     
   }
-  console.log(req.files.archivo);
 
-  const nombre = await subirArchivo(
-    req.files,
-    undefined,
-    coleccion,
-    "productos"
-  );
-  modelo.img = nombre;
+  const { tempFilePath } = req.files.archivo
+  const { secure_url } = await cloudinary.uploader.upload( tempFilePath );  
+  modelo.img = secure_url;
 
   await modelo.save();
+  
 
-  // cloudinary.uploader.upload(  )
+  return res.json( modelo );
 
-  return res.json({ modelo });
+
 };
 
 const mostrarImagen = async (req, res = response) => {
