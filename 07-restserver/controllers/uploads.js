@@ -55,23 +55,23 @@ const actualizarImagenClodinary = async (req, res = response) => {
 
   //Limpiar imagenes previas
   if (modelo.img) {
-    
-  }
-  console.log(req.files.archivo);
+    const nombreArr = modelo.img.split('/');
+    const nombre  = nombreArr[ nombreArr.length - 1 ];
+    const [ public_id ] = nombre.split('.');
 
-  const nombre = await subirArchivo(
-    req.files,
-    undefined,
-    coleccion,
-    "productos"
-  );
-  modelo.img = nombre;
+    cloudinary.uploader.destroy( public_id );
+  }
+
+  const { tempFilePath } = req.files.archivo
+  const { secure_url } = await cloudinary.uploader.upload( tempFilePath );  
+  modelo.img = secure_url;
 
   await modelo.save();
+  
 
-  // cloudinary.uploader.upload(  )
+  return res.json( modelo );
 
-  return res.json({ modelo });
+
 };
 
 const mostrarImagen = async (req, res = response) => {
@@ -123,6 +123,9 @@ const mostrarImagen = async (req, res = response) => {
     res.sendFile(pathImagen);
 
 };
+
+
+
 
 
 
